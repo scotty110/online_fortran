@@ -3,6 +3,17 @@ FROM nvcr.io/nvidia/cuda:12.4.1-devel-ubuntu22.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install the packages that shouldn't affect the build process as all
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+    git \
+    cmake \
+    build-essential \
+    wget \
+    curl && \ 
+    apt-get clean
+
 # Install Miniconda
 WORKDIR /opt
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh && \
